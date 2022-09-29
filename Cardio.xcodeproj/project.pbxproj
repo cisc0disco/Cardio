@@ -24,7 +24,7 @@
 		8AA5371C28E269E100146E99 /* Cardio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cardio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA5371F28E269E100146E99 /* card_testApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = card_testApp.swift; sourceTree = "<group>"; };
 		8AA5372128E269E100146E99 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8AA5372328E269E200146E99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8AA5372328E269E200146E99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "card-test/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		8AA5372628E269E200146E99 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

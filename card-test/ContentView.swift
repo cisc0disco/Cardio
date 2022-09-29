@@ -29,7 +29,7 @@ struct CardView: View {
                 do {
                     try data.write(to: URL(fileURLWithPath: "/var/mobile/Library/Passes/Cards/" + card.id + "/cardBackgroundCombined@2x.png"))
                     let fm = FileManager.default
-
+                    
                     try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
                     
                     let helper = ObjcHelper()
@@ -39,6 +39,14 @@ struct CardView: View {
                 } catch {
                     print(error)
                 }
+            }
+        }.onLongPressGesture()
+        {
+            do {
+                let fm = FileManager.default
+                try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
+            } catch {
+                print(error)
             }
         }
     }
@@ -118,9 +126,11 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            Text("Tap a card to customize").font(.system(size: 25)).foregroundColor(.white).padding(.bottom, 340 )
-            Text("Swipe to view different cards").font(.system(size: 15)).foregroundColor(.white).padding(.bottom, 290 )
+            Text("Tap a card to customize").font(.system(size: 25)).foregroundColor(.white).padding(.bottom, 370 )
+            Text("Swipe to view different cards").font(.system(size: 15)).foregroundColor(.white).padding(.bottom, 320 )
+            Text("Long press on card to reset it").font(.system(size: 12)).foregroundColor(.white).padding(.bottom, 290 )
 
+            
             VStack {
                 ACarousel(getPasses(), id: \.self)
                 {
