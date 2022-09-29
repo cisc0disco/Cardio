@@ -15,43 +15,49 @@ struct CardView: View {
     var card: Card
     
     var body: some View {
-        
-        Image(uiImage: UIImage(contentsOfFile: card.image)!).resizable().aspectRatio(contentMode: .fit).frame(width: 320).cornerRadius(5).onTapGesture {
-            showSheet = true
-        }.sheet(isPresented: $showSheet) {
-            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$cardImage)
-        }.onChange(of: self.cardImage)
-        {
-            
-            newImage in
-            if let data = newImage.pngData()
-            {
+        ZStack {
+            Button {
                 do {
-                    try data.write(to: URL(fileURLWithPath: "/var/mobile/Library/Passes/Cards/" + card.id + "/cardBackgroundCombined@2x.png"))
                     let fm = FileManager.default
-                    
                     try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
                     
                     let helper = ObjcHelper()
                     helper.respring()
-                    
-                    
                 } catch {
                     print(error)
                 }
-            }
-        }.onLongPressGesture()
-        {
-            do {
-                let fm = FileManager.default
-                try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
+            } label: {
+                Image(systemName: "arrow.counterclockwise.circle.fill").resizable().scaledToFit().frame(width: 40).foregroundColor(Color.red)
+            }.zIndex(1).padding(.top, 265)
+
+            
+            Image(uiImage: UIImage(contentsOfFile: card.image)!).resizable().aspectRatio(contentMode: .fit).frame(width: 320).zIndex(0).cornerRadius(5).onTapGesture {
+                showSheet = true
+            }.sheet(isPresented: $showSheet) {
+                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$cardImage)
+            }.onChange(of: self.cardImage)
+            {
                 
-                let helper = ObjcHelper()
-                helper.respring()
-            } catch {
-                print(error)
+                newImage in
+                if let data = newImage.pngData()
+                {
+                    do {
+                        try data.write(to: URL(fileURLWithPath: "/var/mobile/Library/Passes/Cards/" + card.id + "/cardBackgroundCombined@2x.png"))
+                        let fm = FileManager.default
+                        
+                        try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
+                        
+                        let helper = ObjcHelper()
+                        helper.respring()
+                        
+                        
+                    } catch {
+                        print(error)
+                    }
+                }
             }
         }
+        
     }
 }
 
@@ -129,11 +135,9 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            Text("Tap a card to customize").font(.system(size: 25)).foregroundColor(.white).padding(.bottom, 370 )
-            Text("Swipe to view different cards").font(.system(size: 15)).foregroundColor(.white).padding(.bottom, 320 )
-            Text("Long press on card to reset it").font(.system(size: 12)).foregroundColor(.white).padding(.bottom, 290 )
+            Text("Tap a card to customize").font(.system(size: 25)).foregroundColor(.white).padding(.bottom, 350 )
+            Text("Swipe to view different cards").font(.system(size: 15)).foregroundColor(.white).padding(.bottom, 300 )
 
-            
             VStack {
                 ACarousel(getPasses(), id: \.self)
                 {
