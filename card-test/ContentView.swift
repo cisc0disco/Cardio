@@ -45,6 +45,9 @@ struct CardView: View {
             do {
                 let fm = FileManager.default
                 try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
+                
+                let helper = ObjcHelper()
+                helper.respring()
             } catch {
                 print(error)
             }
