@@ -10,6 +10,7 @@
 		8A928B9928E5CEFB00EADBA5 /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 8A928B9828E5CEFB00EADBA5 /* ACarousel */; };
 		8A928B9D28E5E1EB00EADBA5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A928B9C28E5E1EB00EADBA5 /* ImagePicker.swift */; };
 		8A928BA128E5F04800EADBA5 /* ObjcHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A928BA028E5F04800EADBA5 /* ObjcHelper.m */; };
+		8A928BA828E706AF00EADBA5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A928BA728E706AF00EADBA5 /* CardView.swift */; };
 		8AA5372028E269E100146E99 /* card_testApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5371F28E269E100146E99 /* card_testApp.swift */; };
 		8AA5372228E269E100146E99 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5372128E269E100146E99 /* ContentView.swift */; };
 		8AA5372428E269E200146E99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA5372328E269E200146E99 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		8A928B9F28E5F04800EADBA5 /* card-test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "card-test-Bridging-Header.h"; sourceTree = "<group>"; };
 		8A928BA028E5F04800EADBA5 /* ObjcHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcHelper.m; sourceTree = "<group>"; };
 		8A928BA228E5F06D00EADBA5 /* ObjcHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcHelper.h; sourceTree = "<group>"; };
+		8A928BA728E706AF00EADBA5 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		8AA5371C28E269E100146E99 /* Cardio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cardio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA5371F28E269E100146E99 /* card_testApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = card_testApp.swift; sourceTree = "<group>"; };
 		8AA5372128E269E100146E99 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		8AA5371E28E269E100146E99 /* card-test */ = {
 			isa = PBXGroup;
 			children = (
+				8A928BA728E706AF00EADBA5 /* CardView.swift */,
 				8AA5371F28E269E100146E99 /* card_testApp.swift */,
 				8AA5372128E269E100146E99 /* ContentView.swift */,
 				8AA5372328E269E200146E99 /* Assets.xcassets */,
@@ -160,6 +163,7 @@
 				8A928BA128E5F04800EADBA5 /* ObjcHelper.m in Sources */,
 				8AA5372228E269E100146E99 /* ContentView.swift in Sources */,
 				8AA5372028E269E100146E99 /* card_testApp.swift in Sources */,
+				8A928BA828E706AF00EADBA5 /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,13 +293,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_ASSET_PATHS = "\"card-test/Preview Content\"";
 				DEVELOPMENT_TEAM = V46UGT9N8W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "card-test/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Cardio;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -306,7 +311,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cisc0freak.cardio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -330,13 +335,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_ASSET_PATHS = "\"card-test/Preview Content\"";
 				DEVELOPMENT_TEAM = V46UGT9N8W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "card-test/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Cardio;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -347,7 +353,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cisc0freak.cardio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

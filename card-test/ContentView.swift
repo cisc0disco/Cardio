@@ -1,70 +1,9 @@
-
 import SwiftUI
 import ACarousel
 
-struct Card {
-    var image: String
-    var name: String
-    var id: String
-}
-
-struct CardView: View {
-    @State private var cardImage = UIImage()
-    @State private var showSheet = false
-    
-    var card: Card
-    
-    var body: some View {
-        ZStack {
-            Button {
-                do {
-                    let fm = FileManager.default
-                    try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
-                    
-                    let helper = ObjcHelper()
-                    helper.respring()
-                } catch {
-                    print(error)
-                }
-            } label: {
-                Image(systemName: "arrow.counterclockwise.circle.fill").resizable().scaledToFit().frame(width: 40).foregroundColor(Color.red)
-            }.zIndex(1).padding(.top, 265)
-
-            
-            Image(uiImage: UIImage(contentsOfFile: card.image)!).resizable().aspectRatio(contentMode: .fit).frame(width: 320).zIndex(0).cornerRadius(5).onTapGesture {
-                showSheet = true
-            }.sheet(isPresented: $showSheet) {
-                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$cardImage)
-            }.onChange(of: self.cardImage)
-            {
-                
-                newImage in
-                if let data = newImage.pngData()
-                {
-                    do {
-                        try data.write(to: URL(fileURLWithPath: "/var/mobile/Library/Passes/Cards/" + card.id + "/cardBackgroundCombined@2x.png"))
-                        let fm = FileManager.default
-                        
-                        try fm.removeItem(atPath: "/var/mobile/Library/Passes/Cards/" + card.id.replacingOccurrences(of: "pkpass", with: "cache") )
-                        
-                        let helper = ObjcHelper()
-                        helper.respring()
-                        
-                        
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-        }
-        
-    }
-}
-
 struct ContentView: View {
     
-    init() {
-    }
+    @State private var showNoCardsError = false
     
     func getPasses() -> [String]
     {
@@ -80,7 +19,7 @@ struct ContentView: View {
             for pass in passes {
                 let files = try fm.contentsOfDirectory(atPath: path + pass)
                 
-                if (files.contains("cardBackgroundCombined.png.urls"))
+                if (files.contains("cardBackgroundCombined.pdf") || files.contains("cardBackgroundCombined@2x.png"))
                 {
                     data.append(pass)
                 }
@@ -89,24 +28,11 @@ struct ContentView: View {
             return data
             
         } catch {
-            return ["No cards were found in wallet"]
+            return []
         }
     }
     
-    func getData() -> String {
-        let fm = FileManager.default
-
-        let path = "/var/mobile/Library/Passes/Cards/" + getPasses()[0]
-        
-        do {
-            return try fm.contentsOfDirectory(atPath: path).joined(separator: "\n")
-
-        } catch {
-            return "nothing found"
-        }
-    }
-    
-    func getName(id: String) -> String {
+    /*func getName(id: String) -> String {
         let jsonPath = "/var/mobile/Library/Passes/Cards/" + id + "/pass.json"
 
         
@@ -126,22 +52,56 @@ struct ContentView: View {
         }
     
         return "error"
-    }
+    }*/
     
-    func getImage(id: String) -> String {
-        return "/var/mobile/Library/Passes/Cards/" + id + "/cardBackgroundCombined@2x.png"
+    func getImage(id: String) -> (String, String)
+    {
+        let fm = FileManager.default
+        let path = "/var/mobile/Library/Passes/Cards/" + id + "/cardBackgroundCombined"
+        
+        if (fm.fileExists(atPath: path + "@2x.png"))
+        {
+            return (path, "@2x.png")
+        } else if (fm.fileExists(atPath: path + ".pdf"))
+        {
+            return (path, ".pdf")
+        } else
+        {
+            showNoCardsError = true
+            return ("","")
+        }
     }
         
-    var body: some View {
-        ZStack {
+    var body: some View
+    {
+        ZStack
+        {
             Color.black.ignoresSafeArea()
             Text("Tap a card to customize").font(.system(size: 25)).foregroundColor(.white).padding(.bottom, 350 )
             Text("Swipe to view different cards").font(.system(size: 15)).foregroundColor(.white).padding(.bottom, 300 )
 
-            VStack {
-                ACarousel(getPasses(), id: \.self)
+            VStack
+            {
+                if (!getPasses().isEmpty)
                 {
-                    i in CardView(card: Card(image: getImage(id: i), name: getName(id: i), id: i))
+                    ACarousel(getPasses(), id: \.self)
+                    {
+                        i in
+                        let imageData = getImage(id: i)
+                        
+                        if (!imageData.0.isEmpty)
+                        {
+                            CardView(card: Card(image: imageData.0, id: i, format: imageData.1))
+                        }
+
+                    }.alert(isPresented: $showNoCardsError)
+                    {
+                        Alert(title: Text("No Cards Were Found"))
+                    }
+                }
+                else
+                {
+                    Text("No Cards Found").foregroundColor(.red)
                 }
             }
         }
